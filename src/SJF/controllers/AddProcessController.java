@@ -60,12 +60,7 @@ public class AddProcessController {
         processName.setText("Process" + (count + 1) + " info:");
         validateInput(AT, BT);
 
-        for (Process p : sjf.getProcesses()) {
-            System.out.println(p.getProcessName() + " " + p.getArrivalTime() + " " + p.getBurstTime());
-        }
-        System.out.println("a = " + count);
         if (count == 4) {
-
             add.setText("Next");
         }
         if (count == 5) {
@@ -98,7 +93,6 @@ public class AddProcessController {
             arrivalTime.clear();
             burstTime.clear();
             count++;
-            System.out.println("ana bazeeed");
         } else {
             if (!f.isValidPositiveInt(AT))
                 arrivalTimeErrorInput.setText("Arrival time must be +ve int");
