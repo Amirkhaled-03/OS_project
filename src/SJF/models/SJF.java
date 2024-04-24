@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class SJF {
 
-    private ArrayList<Process> processes = new ArrayList<>();
+    private static ArrayList<Process> processes = new ArrayList<>();
 
-    public void addProcess(Process process) {
+    public static void addProcess(Process process) {
         processes.add(process);
     }
 
-    public ArrayList<Process> getProcesses() {
+    public static ArrayList<Process> getProcesses() {
         return processes;
     }
 }

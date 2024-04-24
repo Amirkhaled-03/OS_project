@@ -84,11 +84,11 @@ public class AddProcessController {
 
     private void validateInput(String AT, String BT) {
         Functions f = new Functions();
-        SJF sjf = new SJF();
+        // SJF sjf = new SJF();
 
         if (f.isValidPositiveInt(AT) && f.isValidPositiveInt(BT)) {
             Process process = new Process(f.castInt(AT), f.castInt(BT));
-            sjf.addProcess(process);
+            SJF.addProcess(process);
             content.getChildren().add(new Label(process.toString()));
             arrivalTime.clear();
             burstTime.clear();
