@@ -1,6 +1,7 @@
 package SJF.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.Chart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -20,6 +22,7 @@ import SJF.models.Process;
 
 public class AddProcessController {
 
+    private int numberOfProcesses;
     @FXML
     Label processName;
     @FXML
@@ -44,15 +47,10 @@ public class AddProcessController {
     private Parent root;
 
     public void add(ActionEvent event) throws IOException {
-        // FXMLLoader loader = new FXMLLoader(getClass().getResource(Pathes.VIEWS +
-        // "processDetailsView.fxml"));
-        // root = loader.load();
-        // ProcessDetailsController c2 = loader.getController();
+
         scrollPane.setContent(content);
         String AT = arrivalTime.getText();
         String BT = burstTime.getText();
-        Functions f = new Functions();
-        SJF sjf = new SJF();
         tableHeader.setText(" PName    Arrival-time    Burst-Time");
         arrivalTimeErrorInput.setText("");
         burstTimeErrorInput.setText("");
@@ -60,19 +58,25 @@ public class AddProcessController {
         processName.setText("Process" + (count + 1) + " info:");
         validateInput(AT, BT);
 
-        if (count == 4) {
+        if (count == numberOfProcesses - 1) {
             add.setText("Next");
         }
-        if (count == 5) {
+        if (count == numberOfProcesses) {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(Pathes.GO_BACK + Pathes.VIEWS + "processDetailsView.fxml"));
+                    getClass().getResource(Pathes.GO_BACK + Pathes.VIEWS + "ProcessDetails.fxml"));
             root = loader.load();
-            ProcessDetailsController c2 = loader.getController();
-            c2.displayName("amir");
+            ProcessDetailsController processDetailsController = loader.getController();
+            Process.execute();
+            processDetailsController.setList(SJF.getProcesses());
+            processDetailsController.setAvrageWaitingTime(Process.getAvgTotalWaitingTime());
+            processDetailsController.setAvrageTurnAroundTime(Process.getAvgTotalTurnaroundTime());
+            processDetailsController.setAvrageResponseTime(Process.getAvgTotalResponseTime());
+
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
         }
 
     }
@@ -83,22 +87,29 @@ public class AddProcessController {
     }
 
     private void validateInput(String AT, String BT) {
-        Functions f = new Functions();
-        // SJF sjf = new SJF();
+        // Functions f = new Functions();
 
-        if (f.isValidPositiveInt(AT) && f.isValidPositiveInt(BT)) {
-            Process process = new Process(f.castInt(AT), f.castInt(BT));
+        if (Functions.isValidPositiveInt(AT) && Functions.isValidPositiveInt(BT)) {
+            Process process = new Process(Functions.castInt(AT), Functions.castInt(BT));
             SJF.addProcess(process);
             content.getChildren().add(new Label(process.toString()));
             arrivalTime.clear();
             burstTime.clear();
             count++;
         } else {
-            if (!f.isValidPositiveInt(AT))
+            if (!Functions.isValidPositiveInt(AT))
                 arrivalTimeErrorInput.setText("Arrival time must be +ve int");
-            if (!f.isValidPositiveInt(BT))
+            if (!Functions.isValidPositiveInt(BT))
                 burstTimeErrorInput.setText("Burst time must be +ve int");
         }
+    }
+
+    public int getNumberOfProcesses() {
+        return numberOfProcesses;
+    }
+
+    public void setNumberOfProcesses(int numberOfProcesses) {
+        this.numberOfProcesses = numberOfProcesses + 1;
     }
 
     /**

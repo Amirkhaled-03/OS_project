@@ -1,106 +1,109 @@
 package SJF.models;
 
+import java.util.ArrayList;
+
 public class Process {
-
     static private int processCount = 0;
-    static private int totalWaitingTime;
-    static private int totalTurnaroundTime;
-    static private int totalResponseTime;
+    static private int totalWaitingTime = 0;
+    static private int totalTurnaroundTime = 0;
+    static private int totalResponseTime = 0;
+    static private int totalBurstTime = 0;
 
-    private String ProcessName;
+    static private double avgTotalWaitingTime;
+    static private double avgTotalTurnaroundTime;
+    static private double avgTotalResponseTime;
+    static private double avgTotalBurstTime = 0;
+
+    public int TWT;
+    public int TTAT;
+    public int TRT;
+
+    static private ArrayList<Integer> stopTimes = new ArrayList<>();
+    static private ArrayList<Integer> proccProgress = new ArrayList<>();
+
+    private int processNumber;
     private int arrivalTime;
     private int burstTime;
     private int remainingBurstTime;
     private int waitingTime;
     private int turnaroundTime;
     private int responseTime;
-
-    private boolean firstTime = true;
-    private boolean hasExecuted;
-
-    public Process() {
-
-    }
+    private int finishTime;
+    private boolean isFirstTime;
+    private boolean isFinished;
 
     public Process(int arrivalTime, int burstTime) {
-        ProcessName = "P" + ++processCount;
+        processNumber = ++processCount;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
 
         this.remainingBurstTime = burstTime;
-        this.responseTime = -1;
-        hasExecuted = false;
-        firstTime = true;
+        this.totalBurstTime += burstTime;
+        this.isFirstTime = true;
+        this.isFinished = false;
     }
 
-    public void execute(int currentTime) {
-        this.remainingBurstTime--;
-        if (responseTime == -1) {
-            this.responseTime = currentTime - arrivalTime;
+    public static int getLoopsCount() {
+        int loopCount;
+        loopCount = SJF.getProcesses().get(SJF.getProcesses().size() - 1).getArrivalTime() + totalBurstTime;
+        return loopCount;
+    }
+
+    public static void execute() {
+        int proccNum = 0;
+        int prevProccNum = 0;
+        Process currentProcess;
+
+        for (int i = 0; i <= getLoopsCount(); i++) {
+
+            proccNum = SJF.lowestRemainingBurstTime(i);
+
+            if (proccNum == 0) {
+                if (proccNum != prevProccNum) {
+                    stopTimes.add(i);
+                    proccProgress.add(0);
+                    prevProccNum = proccNum;
+                }
+                continue;
+            }
+
+            currentProcess = SJF.getProcess(proccNum);
+
+            if (proccNum != prevProccNum) { // adding stops to the list
+                stopTimes.add(i);
+                proccProgress.add(currentProcess.getProccesNumber());
+                prevProccNum = proccNum;
+            }
+
+            if (currentProcess.isFirstTime) { // Response time calc
+                currentProcess.isFirstTime = false;
+                currentProcess.responseTime = i - currentProcess.arrivalTime;
+            }
+
+            currentProcess.decrementBurstTime();
+            System.out.println(proccNum + "," + currentProcess.getRemainingBurstTime());
         }
-        if (remainingBurstTime == 0) {
-            hasExecuted = true;
-            turnaroundTime = currentTime - arrivalTime + 1;
-            calcWatingTime();
-            Process.totalWaitingTime += waitingTime;
-            Process.totalResponseTime += responseTime;
-            Process.totalTurnaroundTime += turnaroundTime;
+        for (Process p : SJF.getProcesses()) {
+            totalResponseTime += p.responseTime;
+            totalTurnaroundTime += p.turnaroundTime;
+            totalWaitingTime += p.waitingTime;
         }
-    }
 
-    public int calcWatingTime() {
-
-        waitingTime = (turnaroundTime - burstTime);
-        return waitingTime;
-
-    }
-
-    public int getArrivalTime() {
-        return arrivalTime;
+        System.out.println("Turn= " + totalTurnaroundTime);
+        System.out.println("wait= " + totalWaitingTime);
+        System.out.println("resp= " + totalResponseTime);
     }
 
     public int getBurstTime() {
         return burstTime;
     }
 
-    public String getProcessName() {
-        return ProcessName;
+    public int getRemainingBurstTime() {
+        return remainingBurstTime;
     }
 
-    public void setArrivalTime(int arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public void setBurstTime(int burstTime) {
-        this.burstTime = burstTime;
-    }
-
-    public void setProcessName(String processName) {
-        ProcessName = processName;
-    }
-
-    public void setResponseTime(int responseTime) {
-        this.responseTime = responseTime;
-    }
-
-    public void setTurnaroundTime(int turnaroundTime) {
-        this.turnaroundTime = turnaroundTime;
-    }
-
-    public void setWaitingTime(int waitingTime) {
-        this.waitingTime = waitingTime;
-    }
-
-    public static int gettotalWaitingTime() {
-        return totalWaitingTime;
-    }
-
-    public static int gettotalResponseTime() {
-        return totalResponseTime;
-    }
-
-    public static int gettotalTurnaroundTime() {
-        return totalTurnaroundTime;
+    public int getProccesNumber() {
+        return processNumber;
     }
 
     public int getResponseTime() {
@@ -115,57 +118,111 @@ public class Process {
         return waitingTime;
     }
 
-    public void setFirstTime(boolean firstTime) {
-        this.firstTime = firstTime;
+    public int getArrivalTime() {
+        return arrivalTime;
     }
 
-    public boolean getFirstTime() {
-        return firstTime;
+    public boolean getIsFinished() {
+        return isFinished;
     }
 
-    public void setHasExecuted(boolean hasExecuted) {
-        this.hasExecuted = hasExecuted;
+    public void decrementBurstTime() {
+        this.remainingBurstTime--;
     }
 
-    public boolean getHasExecuted() {
-        return this.hasExecuted;
+    public void setIsFinished(boolean isFinished) {
+        this.isFinished = isFinished;
     }
 
-    public int getRemainingBurstTime() {
-        return remainingBurstTime;
+    public void setFinishTime(int finishTime) {
+        this.finishTime = finishTime;
     }
 
-    public void setRemainingBurstTime(int remainingBurstTime) {
-        this.remainingBurstTime = remainingBurstTime;
+    public void setTurnaroundTime(int turnaroundTime) {
+        this.turnaroundTime = turnaroundTime;
     }
 
-    public static void setTotalResponseTime(int totalResponseTime) {
-        Process.totalResponseTime = totalResponseTime;
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
     }
 
-    public static void setTotalTurnaroundTime(int totalTurnaroundTime) {
-        Process.totalTurnaroundTime = totalTurnaroundTime;
+    public static int getTotalBurstTime() {
+        return totalBurstTime;
     }
 
-    public static void setTotalWaitingTime(int totalWaitingTime) {
-        Process.totalWaitingTime = totalWaitingTime;
-    }
-
-    public static int getTotalResponseTime() {
-        return totalResponseTime;
-    }
-
-    public static int getTotalTurnaroundTime() {
-        return totalTurnaroundTime;
+    public static int getProcessCount() {
+        return processCount;
     }
 
     public static int getTotalWaitingTime() {
         return totalWaitingTime;
     }
 
+    public static int getTotalTurnaroundTime() {
+        return totalTurnaroundTime;
+    }
+
+    public static int getTotalResponseTime() {
+        return totalResponseTime;
+    }
+
+    public static ArrayList<Integer> getStopTimes() {
+        return stopTimes;
+    }
+
+    public static ArrayList<Integer> getProccProgress() {
+        return proccProgress;
+    }
+
+    public int getProcessNumber() {
+        return processNumber;
+    }
+
+    public int getFinishTime() {
+        return finishTime;
+    }
+
+    public boolean isFirstTime() {
+        return isFirstTime;
+    }
+
+    public static void setAvgTotalBurstTime(double avgTotalBurstTime) {
+        Process.avgTotalBurstTime = avgTotalBurstTime;
+    }
+
+    public static void setAvgTotalResponseTime(double avgTotalResponseTime) {
+        Process.avgTotalResponseTime = avgTotalResponseTime;
+    }
+
+    public static void setAvgTotalTurnaroundTime(double avgTotalTurnaroundTime) {
+        Process.avgTotalTurnaroundTime = avgTotalTurnaroundTime;
+    }
+
+    public static void setAvgTotalWaitingTime(double avgTotalWaitingTime) {
+        Process.avgTotalWaitingTime = avgTotalWaitingTime;
+    }
+
+    public static double getAvgTotalBurstTime() {
+        return (double) totalBurstTime / processCount;
+    }
+
+    public static double getAvgTotalResponseTime() {
+        return (double) totalResponseTime / processCount;
+    }
+
+    public static double getAvgTotalTurnaroundTime() {
+        System.out.println("totalllllllll ====" + totalTurnaroundTime);
+        return (double) totalTurnaroundTime / processCount;
+    }
+
+    public static double getAvgTotalWaitingTime() {
+        return (double) totalWaitingTime / processCount;
+    }
+
     @Override
     public String toString() {
 
-        return " " + ProcessName + "           " + arrivalTime + "                        " + burstTime;
+        return " " + processNumber + "           " + arrivalTime + "                        " + burstTime;
     }
+
 }
