@@ -1,6 +1,7 @@
 
 package SJF;
 
+import SJF.utils.Constants;
 import SJF.utils.Pathes;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource(Pathes.VIEWS + "ProcessesNumber.fxml"));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,Constants.WIDTH,Constants.HEIGHT);
+
         primaryStage.setTitle("SJF Algorithm");
         // // image
         // Image icoImage = new Image(Pathes.VIEWS + "logo.jpeg");

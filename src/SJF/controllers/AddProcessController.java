@@ -1,20 +1,18 @@
 package SJF.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.Chart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import SJF.utils.*;
 import SJF.models.*;
@@ -55,8 +53,9 @@ public class AddProcessController {
         arrivalTimeErrorInput.setText("");
         burstTimeErrorInput.setText("");
 
-        processName.setText("Process" + (count + 1) + " info:");
-        validateInput(AT, BT);
+        validateInputs(AT, BT);
+
+        processName.setText("Process" + (count) + " info:");
 
         if (count == numberOfProcesses - 1) {
             add.setText("Next");
@@ -66,14 +65,16 @@ public class AddProcessController {
                     getClass().getResource(Pathes.GO_BACK + Pathes.VIEWS + "ProcessDetails.fxml"));
             root = loader.load();
             ProcessDetailsController processDetailsController = loader.getController();
+
             Process.execute();
+
             processDetailsController.setList(SJF.getProcesses());
             processDetailsController.setAvrageWaitingTime(Process.getAvgTotalWaitingTime());
             processDetailsController.setAvrageTurnAroundTime(Process.getAvgTotalTurnaroundTime());
             processDetailsController.setAvrageResponseTime(Process.getAvgTotalResponseTime());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
+            scene = new Scene(root, Constants.WIDTH, Constants.HEIGHT);
             stage.setScene(scene);
             stage.show();
 
@@ -82,20 +83,27 @@ public class AddProcessController {
     }
 
     public void reset(ActionEvent event) throws IOException {
+        SJF.getProcesses().clear();
+        content.getChildren().clear();
         arrivalTime.clear();
         burstTime.clear();
+        count = 1;
+        processName.setText("Process1 info:");
+        Label noProcessLabel = new Label("There is no process added");
+        noProcessLabel.setFont(Font.font("System Italic", 14.0));
+        scrollPane.setContent(noProcessLabel);
+
     }
 
-    private void validateInput(String AT, String BT) {
-        // Functions f = new Functions();
+    private void validateInputs(String AT, String BT) {
 
         if (Functions.isValidPositiveInt(AT) && Functions.isValidPositiveInt(BT)) {
             Process process = new Process(Functions.castInt(AT), Functions.castInt(BT));
             SJF.addProcess(process);
             content.getChildren().add(new Label(process.toString()));
+            count++;
             arrivalTime.clear();
             burstTime.clear();
-            count++;
         } else {
             if (!Functions.isValidPositiveInt(AT))
                 arrivalTimeErrorInput.setText("Arrival time must be +ve int");
@@ -112,18 +120,4 @@ public class AddProcessController {
         this.numberOfProcesses = numberOfProcesses + 1;
     }
 
-    /**
-     * 
-     * ---- how ca we add multiple nodes in scrollpane?
-     * To add content to a ScrollPane programmatically, you would typically set the
-     * content of the ScrollPane
-     * using its setContent() method. However, the setContent() method in JavaFX's
-     * ScrollPane expects a single node as its parameter,
-     * not a list of nodes.
-     * If you want to add multiple nodes to a ScrollPane, you can wrap them in a
-     * layout container
-     * (e.g., VBox, HBox, GridPane) and then set that container as the content of
-     * the ScrollPane.
-     * 
-     */
 }

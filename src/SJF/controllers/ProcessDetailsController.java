@@ -14,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import SJF.models.Process;
+import SJF.utils.Constants;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -93,7 +95,7 @@ public class ProcessDetailsController implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         GantAlgorithm gantAlgorithm = new GantAlgorithm();
         chart = gantAlgorithm.start1();
-        scene = new Scene(chart);
+        scene = new Scene(chart, Constants.WIDTH, Constants.HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
