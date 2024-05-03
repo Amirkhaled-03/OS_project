@@ -43,11 +43,11 @@ public class ProcessesNumberController {
                 addProcessController.setNumberOfProcesses(numberOfProcesses);
                 if (numberOfProcesses == 1) { // if the there is only one process will enter, set the text, we make it
                                               // here bex it must set before the UI build
-                    addProcessController.add.setText("Next");
+                    addProcessController.setButtonText("Next");
 
                 }
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root,897.0,615.0);
+                scene = new Scene(root, 897.0, 615.0);
                 stage.setScene(scene);
                 stage.show();
             }

@@ -22,24 +22,24 @@ public class AddProcessController {
 
     private int numberOfProcesses;
     @FXML
-    Label processName;
+    private Label processName;
     @FXML
-    TextField arrivalTime;
+    private TextField arrivalTime;
     @FXML
-    Label tableHeader;
+    private Label tableHeader;
     @FXML
-    TextField burstTime;
+    private TextField burstTime;
     @FXML
-    ScrollPane scrollPane;
+    private ScrollPane scrollPane;
     @FXML
-    Button add;
+    private Button addButton;
     @FXML
-    Label arrivalTimeErrorInput;
+    private Label arrivalTimeErrorInput;
     @FXML
-    Label burstTimeErrorInput;
-    int count = 1;
-    VBox content = new VBox();
-    TextField textField;
+    private Label burstTimeErrorInput;
+    private int count = 1;
+    private VBox content = new VBox();
+    private TextField textField;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -58,7 +58,7 @@ public class AddProcessController {
         processName.setText("Process" + (count) + " info:");
 
         if (count == numberOfProcesses - 1) {
-            add.setText("Next");
+            addButton.setText("Next");
         }
         if (count == numberOfProcesses) {
             FXMLLoader loader = new FXMLLoader(
@@ -118,6 +118,11 @@ public class AddProcessController {
 
     public void setNumberOfProcesses(int numberOfProcesses) {
         this.numberOfProcesses = numberOfProcesses + 1;
+    }
+
+    public void setButtonText(String text) {
+        this.addButton.setText(text);
+        
     }
 
 }

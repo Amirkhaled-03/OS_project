@@ -81,7 +81,7 @@ public class Process {
             }
 
             currentProcess.decrementBurstTime();
-            System.out.println(proccNum + "," + currentProcess.getRemainingBurstTime());
+            // System.out.println(proccNum + "," + currentProcess.getRemainingBurstTime());
         }
         for (Process p : SJF.getProcesses()) {
             totalResponseTime += p.responseTime;
@@ -89,9 +89,9 @@ public class Process {
             totalWaitingTime += p.waitingTime;
         }
 
-        System.out.println("Turn= " + totalTurnaroundTime);
-        System.out.println("wait= " + totalWaitingTime);
-        System.out.println("resp= " + totalResponseTime);
+        // System.out.println("Turn= " + totalTurnaroundTime);
+        // System.out.println("wait= " + totalWaitingTime);
+        // System.out.println("resp= " + totalResponseTime);
     }
 
     public int getBurstTime() {
@@ -211,7 +211,6 @@ public class Process {
     }
 
     public static double getAvgTotalTurnaroundTime() {
-        System.out.println("totalllllllll ====" + totalTurnaroundTime);
         return (double) totalTurnaroundTime / processCount;
     }
 
