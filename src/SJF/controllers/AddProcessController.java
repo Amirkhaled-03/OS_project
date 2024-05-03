@@ -83,6 +83,7 @@ public class AddProcessController {
     }
 
     public void reset(ActionEvent event) throws IOException {
+        Process.resetProcessCount();
         SJF.getProcesses().clear();
         content.getChildren().clear();
         arrivalTime.clear();
@@ -92,7 +93,6 @@ public class AddProcessController {
         Label noProcessLabel = new Label("There is no process added");
         noProcessLabel.setFont(Font.font("System Italic", 14.0));
         scrollPane.setContent(noProcessLabel);
-
     }
 
     private void validateInputs(String AT, String BT) {

@@ -174,9 +174,15 @@ public class Process {
         return proccProgress;
     }
 
+    public static void resetProcessCount(){
+        processCount = 0;
+    }
+
     public int getProcessNumber() {
         return processNumber;
     }
+
+    
 
     public int getFinishTime() {
         return finishTime;
