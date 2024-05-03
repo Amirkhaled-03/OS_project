@@ -92,11 +92,11 @@ public class ProcessDetailsController implements Initializable {
     }
 
     public void showGanttChart(ActionEvent event) {
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage2 = new Stage();
         GantAlgorithm gantAlgorithm = new GantAlgorithm();
         chart = gantAlgorithm.start1();
         scene = new Scene(chart, Constants.WIDTH, Constants.HEIGHT);
-        stage.setScene(scene);
-        stage.show();
+        stage2.setScene(scene);
+        stage2.show();
     }
 }
