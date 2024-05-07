@@ -18,7 +18,6 @@ import SJF.utils.*;
 import SJF.models.*;
 import SJF.models.Process;
 
-
 public class AddProcessController {
 
     private int numberOfProcesses;
@@ -98,7 +97,7 @@ public class AddProcessController {
 
     private void validateInputs(String AT, String BT) {
 
-        if (Functions.isValidPositiveInt(AT) && Functions.isValidPositiveInt(BT)) {
+        if (Functions.isValidPositiveInt(AT) && Functions.isValidPositiveIntNotZero(BT)) {
             Process process = new Process(Functions.castInt(AT), Functions.castInt(BT));
             SJF.addProcess(process);
             content.getChildren().add(new Label(process.toString()));
@@ -108,7 +107,7 @@ public class AddProcessController {
         } else {
             if (!Functions.isValidPositiveInt(AT))
                 arrivalTimeErrorInput.setText("Enter a valid arrival time");
-            if (!Functions.isValidPositiveInt(BT))
+            if (!Functions.isValidPositiveIntNotZero(BT))
                 burstTimeErrorInput.setText("Enter a valid burst time");
         }
     }
@@ -123,7 +122,7 @@ public class AddProcessController {
 
     public void setButtonText(String text) {
         this.addButton.setText(text);
-        
+
     }
 
 }
