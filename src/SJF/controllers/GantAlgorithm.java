@@ -69,11 +69,10 @@ public class GantAlgorithm {
         }
 
         chart.getStylesheets()
-                .add(getClass().getResource(Pathes.GO_BACK + Pathes.VIEWS + "ganttchart.css").toExternalForm());
+                .add(getClass().getResource(Pathes.GO_BACK + Pathes.CSS + "ganttchart.css").toExternalForm());
 
         return chart;
-      
+
     }
 
-   
 }

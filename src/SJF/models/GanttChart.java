@@ -20,8 +20,8 @@ public class GanttChart<X, Y> extends XYChart<X, Y> {
 
     public static class ExtraData {
 
-        public long length;
-        public String styleClass;
+        private long length;
+        private String styleClass;
 
         public ExtraData(long lengthMs, String styleClass) {
             super();

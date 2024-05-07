@@ -14,7 +14,7 @@
       <TableView fx:id="processDetails" layoutX="14.0" layoutY="61.0" prefHeight="413.0" prefWidth="870.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="14.0">
         <columns>
           <TableColumn fx:id="processID" prefWidth="145.0" text="#Process ID" />
-          <TableColumn fx:id="arrivalTime" prefWidth="145.0" text="Arrivel Time" />
+          <TableColumn fx:id="arrivalTime" prefWidth="145.0" text="Arrival Time" />
             <TableColumn minWidth="0.0" prefWidth="0.0" text="Burst Time" />
             <TableColumn fx:id="burstTime" prefWidth="145.0" text="Burst Time" />
             <TableColumn fx:id="waitingTime" prefWidth="145.0" text="Waiting Time" />

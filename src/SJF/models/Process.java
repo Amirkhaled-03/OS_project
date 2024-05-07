@@ -14,10 +14,6 @@ public class Process {
     static private double avgTotalResponseTime;
     static private double avgTotalBurstTime = 0;
 
-    public int TWT;
-    public int TTAT;
-    public int TRT;
-
     static private ArrayList<Integer> stopTimes = new ArrayList<>();
     static private ArrayList<Integer> proccProgress = new ArrayList<>();
 

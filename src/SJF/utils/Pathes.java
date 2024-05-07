@@ -11,7 +11,8 @@ public class Pathes {
     public static final String GO_BACK = ".." + SEPARATOR;
     public static final String controller = "SJF"; // not work
     public static final String VIEWS = "views" + SEPARATOR;
-    public static final String CSS = "css" + SEPARATOR;
-    public static final String IMAGES = "images" + SEPARATOR;
+    public static final String ASSETS = "assets" + SEPARATOR;
+    public static final String CSS = ASSETS + "css" + SEPARATOR;
+    public static final String IMAGES = ASSETS + "images" + SEPARATOR;
 
 }

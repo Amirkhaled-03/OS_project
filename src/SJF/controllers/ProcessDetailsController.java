@@ -11,11 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.chart.Chart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import SJF.models.Process;
 import SJF.utils.Constants;
+import SJF.utils.Pathes;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -96,6 +99,12 @@ public class ProcessDetailsController implements Initializable {
         GantAlgorithm gantAlgorithm = new GantAlgorithm();
         chart = gantAlgorithm.start1();
         scene = new Scene(chart, Constants.WIDTH, Constants.HEIGHT);
+        InputStream iconStream = getClass().getResourceAsStream(Pathes.GO_BACK + Pathes.IMAGES + "icon.jpeg");
+        if (iconStream != null) {
+            Image icoImage = new Image(iconStream);
+            stage2.getIcons().add(icoImage);
+        } else
+            System.out.println("Failed to load icon image.");
         stage2.setScene(scene);
         stage2.show();
     }
