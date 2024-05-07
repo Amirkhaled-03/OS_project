@@ -2,6 +2,8 @@ package SJF.models;
 
 import java.util.ArrayList;
 
+import SJF.controllers.ProcessDetailsController;
+
 public class SJF {
 
     private static ArrayList<Process> processes = new ArrayList<>();
@@ -14,9 +16,17 @@ public class SJF {
         return processes;
     }
 
+    // 0,1,2
+    // 2,6,1
+
+
+
     public static Process getProcess(int pNum) {
-        return processes.get(pNum - 1);
-        // TODO: num-1 is a worng way to access the procces but it works
+        for(Process p: processes){
+            if(p.getProccesNumber() == pNum)
+                return p;
+        }
+        return new Process(0,0);
     }
 
     public static int getMaxRemainingBurstTime() {

@@ -54,11 +54,17 @@ public class GantAlgorithm {
         xAxis.setLabel("TimeLine");
         xAxis.setTickLabelFill(Color.CHOCOLATE);
         xAxis.setMinorTickCount(5); // ticks between each time stamp in x axis
+        xAxis.setAutoRanging(false); // Disable auto-ranging
+        xAxis.setLowerBound(0); // Set the lower bound to an integer value
+        xAxis.setTickUnit(1);
+        xAxis.setUpperBound(SJF.getProcess(Process.getLastProccesNum()).getFinishTime());
+
 
         yAxis.setLabel("");
         yAxis.setTickLabelFill(Color.CHOCOLATE);
         yAxis.setTickLabelGap(10); // gap in between tasks y axis
         yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(machines)));
+
 
         chart.setTitle("Shortest Job First Gantt Chart");
         chart.setLegendVisible(false);

@@ -25,8 +25,12 @@ public class Process {
     private int turnaroundTime;
     private int responseTime;
     private int finishTime;
+    private static int lastProccesNum;
+
+
     private boolean isFirstTime;
     private boolean isFinished;
+    
 
     public Process(int arrivalTime, int burstTime) {
         processNumber = ++processCount;
@@ -54,6 +58,10 @@ public class Process {
         for (int i = 0; i <= getLoopsCount(); i++) {
 
             proccNum = SJF.lowestRemainingBurstTime(i);
+            
+            if(proccNum != 0)
+                Process.setLastProccesNum(proccNum);
+                
 
             if (proccNum == 0) {
                 if (proccNum != prevProccNum) {
@@ -65,6 +73,7 @@ public class Process {
             }
 
             currentProcess = SJF.getProcess(proccNum);
+
 
             if (proccNum != prevProccNum) { // adding stops to the  list
                 stopTimes.add(i);
@@ -235,6 +244,16 @@ public class Process {
             }
         }
     }
+
+
+    public static int getLastProccesNum() {
+        return lastProccesNum;
+    }
+
+    public static void setLastProccesNum(int lastProccesNu) {
+        lastProccesNum = lastProccesNu;
+    }
+
 
     @Override
     public String toString() {
