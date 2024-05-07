@@ -66,7 +66,7 @@ public class Process {
 
             currentProcess = SJF.getProcess(proccNum);
 
-            if (proccNum != prevProccNum) { // adding stops to the list
+            if (proccNum != prevProccNum) { // adding stops to the  list
                 stopTimes.add(i);
                 proccProgress.add(currentProcess.getProccesNumber());
                 prevProccNum = proccNum;
