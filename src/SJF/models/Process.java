@@ -239,7 +239,7 @@ public class Process {
     @Override
     public String toString() {
 
-        return " " + processNumber + "           " + arrivalTime + "                        " + burstTime;
+        return "  " + processNumber + "            " + arrivalTime + "                         " + burstTime;
     }
 
 }
