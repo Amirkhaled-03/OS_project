@@ -106,9 +106,9 @@ public class AddProcessController {
             burstTime.clear();
         } else {
             if (!Functions.isValidPositiveInt(AT))
-                arrivalTimeErrorInput.setText("Arrival time must be +ve int");
+                arrivalTimeErrorInput.setText("Enter a valid arrival time");
             if (!Functions.isValidPositiveInt(BT))
-                burstTimeErrorInput.setText("Burst time must be +ve int");
+                burstTimeErrorInput.setText("Enter a valid burst time");
         }
     }
 
