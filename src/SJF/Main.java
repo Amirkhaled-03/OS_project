@@ -29,6 +29,7 @@ public class Main extends Application {
         } else
             System.out.println("Failed to load icon image.");
 
+            
         primaryStage.setScene(scene);
         primaryStage.show();
 
