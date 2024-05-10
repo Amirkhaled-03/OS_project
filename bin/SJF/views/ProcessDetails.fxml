@@ -60,7 +60,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </Label>
-      <Button layoutX="706.0" layoutY="501.0" mnemonicParsing="false" onAction="#showGanttChart" prefHeight="31.0" prefWidth="177.0" text="Show Gantt Chart">
+      <Button layoutX="706.0" layoutY="514.0" mnemonicParsing="false" onAction="#showGanttChart" prefHeight="31.0" prefWidth="177.0" text="Show Gantt Chart">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -68,15 +68,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="706.0" layoutY="539.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="177.0" text="Create a new process">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="exitButton" layoutX="706.0" layoutY="576.0" mnemonicParsing="false" onAction="#exit4" prefHeight="31.0" prefWidth="177.0" text="Exit">
+      <Button fx:id="exitButton" layoutX="706.0" layoutY="570.0" mnemonicParsing="false" onAction="#exit4" prefHeight="31.0" prefWidth="177.0" text="Exit">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

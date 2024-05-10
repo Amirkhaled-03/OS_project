@@ -73,15 +73,15 @@ public class ProcessDetailsController implements Initializable {
     }
 
     public void setAvrageWaitingTime(double avrageWaitingTime) {
-        this.avrageWaitingTime.setText("Avrage Waiting Time: " + avrageWaitingTime);
+        this.avrageWaitingTime.setText("Average Waiting Time: " + avrageWaitingTime);
     }
 
     public void setAvrageTurnAroundTime(double avrageTurnAroundTime) {
-        this.avrageTurnAroundTime.setText("Avrage Turn Around Time: " + avrageTurnAroundTime);
+        this.avrageTurnAroundTime.setText("Average Turn Around Time: " + avrageTurnAroundTime);
     }
 
     public void setAvrageResponseTime(double avrageResponseTime) {
-        this.avrageResponseTime.setText("Avrage Response Time: " + avrageResponseTime);
+        this.avrageResponseTime.setText("Average Response Time: " + avrageResponseTime);
     }
 
     public void exit4(ActionEvent actionEvent) {
