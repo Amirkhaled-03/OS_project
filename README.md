@@ -28,7 +28,7 @@ This project is a simulation of the Shortest Job First (Preemptive) scheduling a
 The Shortest Job First (Preemptive) algorithm selects the process with the shortest burst time to execute next. If a new process arrives with a shorter burst time, it preempts the currently running process and starts executing the new process.
 
 ## video
-![video](demo.mp4)
+![video ](demo.mp4)
 
 
 
