@@ -75,19 +75,19 @@ public class Process {
             currentProcess = SJF.getProcess(proccNum);
 
 
-            if (proccNum != prevProccNum) { // adding stops to the  list
+            if (proccNum != prevProccNum) { 
                 stopTimes.add(i);
                 proccProgress.add(currentProcess.getProccesNumber());
                 prevProccNum = proccNum;
             }
 
-            if (currentProcess.isFirstTime) { // Response time calc
+            if (currentProcess.isFirstTime) { 
                 currentProcess.isFirstTime = false;
                 currentProcess.responseTime = i - currentProcess.arrivalTime;
             }
 
             currentProcess.decrementBurstTime();
-            // System.out.println(proccNum + "," + currentProcess.getRemainingBurstTime());
+            
         }
         for (Process p : SJF.getProcesses()) {
             totalResponseTime += p.responseTime;
@@ -95,9 +95,6 @@ public class Process {
             totalWaitingTime += p.waitingTime;
         }
 
-        // System.out.println("Turn= " + totalTurnaroundTime);
-        // System.out.println("wait= " + totalWaitingTime);
-        // System.out.println("resp= " + totalResponseTime);
     }
 
     public int getBurstTime() {
