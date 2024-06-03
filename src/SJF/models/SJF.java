@@ -16,8 +16,6 @@ public class SJF {
         return processes;
     }
 
-    // 0,1,2
-    // 2,6,1
 
 
 
@@ -54,10 +52,10 @@ public class SJF {
             if (!process.getIsFinished() && process.getRemainingBurstTime() == 0) {
                 process.setIsFinished(true);
                 process.setFinishTime(currentTime);
-                process.setTurnaroundTime(currentTime - process.getArrivalTime()); // turn = finishtime - arrival
-                process.setWaitingTime((currentTime - process.getArrivalTime()) - process.getBurstTime()); // waiting =
-                                                                                                           // turn -
-                                                                                                           // burst
+                process.setTurnaroundTime(currentTime - process.getArrivalTime()); 
+                process.setWaitingTime((currentTime - process.getArrivalTime()) - process.getBurstTime());
+                                                                                                           
+                                                                                                           
             }
 
         }
